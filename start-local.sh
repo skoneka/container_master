@@ -1,0 +1,2 @@
+#!/bin/sh
+exec gunicorn -c config.py wsgi -b :8080
