@@ -10,5 +10,5 @@ sleep 10;
 time oc new-app https://github.com/skoneka/container_testme.git --name "testme-image"
 #oc start-build testme-image --from-dir=/root/measure-images/container_testme
 echo Now run
-echo oc logs -f bc/testme-image|grep 5000
+echo "oc logs -f bc/testme-image|grep 5000"
 echo oc scale --replicas=0 dc/testme-image
