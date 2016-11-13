@@ -10,10 +10,11 @@ from myutil import get_meminfo
 
 
 DOCKER_REPO_URL="REPLACEME_DOCKER_REPO_URL"
+LOGFILE="/tmp/containerup.log"
 MEM_RAM_THRESHOLD=100000
 
 application = Flask(__name__)
-flog = open ("/tmp/containerup.log", "a")
+flog = open (LOGFILE, "a")
 
 FLAG_ABORT=False
 
