@@ -22,7 +22,9 @@ EOF
 
 
 DOCKER_REPO_URL=$(oc logs -f bc/testme-image |grep :5000|cut -d' ' -f3)
-LOGFILE="$1"
+ENGINE="$1"
+LOGFILE="$2"
 sed -i "s#DOCKER_REPO_URL=.*#DOCKER_REPO_URL=\"$DOCKER_REPO_URL\"#" wsgi.py
 sed -i "s#LOGFILE=.*#LOGFILE=\"$LOGFILE\"#" wsgi.py
+sed -i "s#ENGINE=.*#ENGINE=\"$ENGINE\"#" wsgi.py
 exec gunicorn -c config.py wsgi -b :8080 --access-logfile -

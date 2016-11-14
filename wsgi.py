@@ -17,6 +17,7 @@ application = Flask(__name__)
 flog = open (LOGFILE, "a")
 
 FLAG_ABORT=False
+ENGINE="docker"
 
 
 
@@ -50,16 +51,12 @@ def url_container_next():
     else:
         print(status, file=flog); flog.flush()
         count = int(request.args.get('count'))
-        Popen("""time oc new-app "%s" --name "testme-%d" --insecure-registry""" % (DOCKER_REPO_URL, count), shell=True).wait()
+        if ENGINE == "openshift":
+            Popen("""oc new-app "%s" --name "testme-%d" --insecure-registry""" % (DOCKER_REPO_URL, count), stdin=None, stdout=None, stderr=None, close_fds=True, shell=True)
+        elif ENGINE == "docker":
+            Popen(""" docker run  -d --name "testme-%d" --hostname "testme-%d" "testme-image" """ % (count,count), stdin=None, stdout=None, stderr=None, close_fds=True, shell=True)
+
         return status, 201
-
-
-    
-
-#@application.route("/", methods=['GET'])
-#def url_test():
-#    print(request.args)
-#    return "test",200
 
 if __name__ == "__main__":
     application.run()
