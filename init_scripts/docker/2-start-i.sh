@@ -2,7 +2,7 @@ LOG=/root/logs/docker-`date +%s`.log
 cd /root/measure-images/container_master
 cat /proc/meminfo /proc/cpuinfo > $LOG
 ps auxww >> $LOG
-bash start-local.sh $LOG.container 
+bash start-local.sh docker $LOG.container 
 #sleep 3;
 cat <<EOF
 Now run
